@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 5 Lesson 5 - Detailed Guide</title>
+    <title>Unit 5 - Final Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0c10;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg: #000000; 
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --accent: #8257e5;
             --text-en: #e1e1e6;
             --text-ar: #00d2d3;
             --ans-green: #00ff88;
         }
-
         body {
             background: var(--bg);
             color: var(--text-en);
@@ -25,158 +24,194 @@
             display: flex;
             justify-content: center;
         }
-
         .wrapper { max-width: 950px; width: 100%; }
-
-        .main-header {
-            border-left: 6px solid var(--accent);
-            padding: 15px 25px;
-            background: var(--glass);
-            border-radius: 0 15px 15px 0;
-            margin-bottom: 50px;
+        .test-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-family: 'Cairo';
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(130, 87, 229, 0.5);
         }
-
+        /* كود التغبيش الحاسم */
+        .is-testing .blur-target { filter: blur(7px); cursor: pointer; user-select: none; transition: 0.3s; }
+        .is-testing .blur-target:active { filter: blur(0); }
+        
+        .main-header { border-left: 6px solid var(--accent); padding: 15px 25px; background: var(--glass); border-radius: 0 15px 15px 0; margin-bottom: 50px; }
         .main-header h1 { margin: 0; font-size: 1.8rem; color: var(--accent); }
         .main-header p { margin: 5px 0 0; color: var(--text-ar); font-family: 'Cairo'; }
-
-        .section-box {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 35px;
-        }
-
+        .section-box { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 30px; margin-bottom: 35px; }
         .section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
-        .label-circle {
-            background: var(--accent);
-            width: 35px; height: 35px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700;
-        }
-
-        /* Exercise A Style */
-        .row-horizontal {
-            display: grid;
-            grid-template-columns: 30px 2fr 1fr 2fr;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid var(--glass-border);
-            gap: 15px;
-        }
-
-        .row-ans { color: var(--ans-green); font-weight: 700; text-align: center; border: 1px solid var(--ans-green); border-radius: 6px; padding: 3px; font-size: 0.85rem; }
+        .label-circle { background: var(--accent); width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .row-horizontal { display: grid; grid-template-columns: 30px 2fr 1.2fr 2fr; align-items: center; padding: 15px; border-bottom: 1px solid var(--glass-border); gap: 15px; }
+        .row-ans { color: var(--ans-green); font-weight: 700; text-align: center; border: 1px solid var(--ans-green); border-radius: 6px; padding: 5px; font-size: 0.85rem; }
         .row-ar { direction: rtl; font-family: 'Cairo'; color: var(--text-ar); font-size: 0.8rem; line-height: 1.4; }
-
-        /* Exercise B Style */
-        .qa-card {
-            background: rgba(255,255,255,0.02);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            margin-bottom: 15px;
-        }
-
-        .q-txt { display: block; color: #8b949e; font-size: 0.9rem; margin-bottom: 5px; }
+        .qa-card { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); margin-bottom: 15px; }
+        .q-txt { display: block; color: #a1aab3; font-size: 0.9rem; margin-bottom: 5px; }
         .a-txt { display: block; color: var(--ans-green); font-weight: 600; margin-bottom: 10px; }
         .tr-txt { display: block; direction: rtl; font-family: 'Cairo'; color: var(--text-ar); font-size: 0.85rem; border-top: 1px dashed #333; padding-top: 10px; }
-
-        @media (max-width: 768px) {
-            .row-horizontal { grid-template-columns: 1fr; }
-            .row-ans { width: fit-content; padding: 5px 15px; }
-        }
+        .divider { height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 60px 0; opacity: 0.6; }
     </style>
 </head>
 <body>
 
+<button class="test-btn" id="testToggle">وضع الاختبار (تغبيش)</button>
+
 <div class="wrapper">
     <div class="main-header">
-        <h1>Lesson 5: Wedding Customs</h1>
-        <p>الدرس الخامس: تقاليد حفلات الزفاف (الوحدة الخامسة)</p>
+        <h1>Lesson 5: Wedding customs</h1>
+        <p>الوحدة الخامسة : تقاليد حفلات الزفاف </p>
     </div>
 
     <section class="section-box">
         <div class="section-label">
             <div class="label-circle">A</div>
-            <span style="font-weight: 500;">Match Words with Definitions (توصيل الكلمات بالتعاريف)</span>
+            <span style="font-weight: 500;">Match the words with their definitions.</span>
         </div>
-
+        
         <div class="row-horizontal">
             <span>1</span>
-            <span>A formal event to celebrate a special occasion</span>
-            <span class="row-ans">ceremony</span>
-            <span class="row-ar">حدث رسمي أو مراسيم تهدف للاحتفال بمناسبة خاصة جداً.</span>
+            <span>a formal event to celebrate a special occasion</span>
+            <span class="row-ans blur-target">ceremony<br>(سيريموني)</span>
+            <span class="row-ar">حدث رسمي أو مراسيم للاحتفال بمناسبة خاصة.</span>
         </div>
+        
         <div class="row-horizontal">
             <span>2</span>
-            <span>The man who is getting married</span>
-            <span class="row-ans">groom</span>
-            <span class="row-ar">الرجل (الذكر) الذي سوف يتزوج، وهو ما نسميه بالعريس.</span>
+            <span>the man who is getting married</span>
+            <span class="row-ans blur-target">groom<br>(كروم)</span>
+            <span class="row-ar">الرجل الذي سوف يتزوج (العريس).</span>
         </div>
+        
         <div class="row-horizontal">
             <span>3</span>
-            <span>The mother of the person you marry</span>
-            <span class="row-ans">mother-in-law</span>
-            <span class="row-ar">والدة الشخص الذي تتزوجه أو تتزوجينه (الحماة بحكم القانون).</span>
+            <span>the mother of the person you marry</span>
+            <span class="row-ans blur-target">mother-in-law<br>(مذر إن لو)</span>
+            <span class="row-ar">والدة الزوج أو الزوجة (الحماة).</span>
         </div>
+        
         <div class="row-horizontal">
             <span>4</span>
-            <span>The celebration when people get married</span>
-            <span class="row-ans">wedding</span>
-            <span class="row-ar">احتفالية الزواج أو الزفاف الكاملة التي تجمع الناس.</span>
+            <span>the celebration when people get married</span>
+            <span class="row-ans blur-target">wedding<br>(ويدينك)</span>
+            <span class="row-ar">احتفالية الزواج أو الزفاف الكاملة.</span>
         </div>
+        
         <div class="row-horizontal">
             <span>5</span>
-            <span>A plant that is used to decorate the skin</span>
-            <span class="row-ans">henna</span>
-            <span class="row-ar">نبات طبيعي يُستخدم لتزيين الجلد أو تلوين الشعر (الحناء).</span>
+            <span>a plant that is used to decorate the skin or colour the hair</span>
+            <span class="row-ans blur-target">henna<br>(حنا)</span>
+            <span class="row-ar">نبات طبيعي يستخدم لتزيين الجلد أو تلوين الشعر.</span>
         </div>
+        
         <div class="row-horizontal">
             <span>6</span>
-            <span>The woman who is getting married</span>
-            <span class="row-ans">bride</span>
-            <span class="row-ar">المرأة (الأنثى) التي سوف تتزوج، وهي ما نسميها بالعروس.</span>
+            <span>the woman who is getting married</span>
+            <span class="row-ans blur-target">bride<br>(برايد)</span>
+            <span class="row-ar">المرأة التي سوف تتزوج (العروس).</span>
         </div>
     </section>
-
     <section class="section-box">
         <div class="section-label">
             <div class="label-circle">B</div>
-            <span style="font-weight: 500;">Answer the Questions (أجب عن الأسئلة التالية)</span>
+            <span style="font-weight: 500;">Answer these questions using information from the text.</span>
         </div>
-
+        
         <div class="qa-card">
             <span class="q-txt">1. Why do fewer people have weddings over several days now?</span>
-            <span class="a-txt">Because people often don't have the time or money for that.</span>
-            <span class="tr-txt">الترجمة: لماذا يقل عدد الناس الذين يقيمون حفلات زفاف تستمر لعدة أيام حالياً؟ الجواب: لأن الناس غالباً لا يملكون الوقت الكافي أو المال الكافي للقيام بذلك.</span>
+            <span class="a-txt blur-target">because people often don't have the time or money for that.</span>
+            <span class="tr-txt">لماذا يقل عدد الناس الذين يقيمون حفلات زفاف لعدة أيام؟ الجواب: لأنهم لا يملكون الوقت أو المال الكافي.</span>
         </div>
 
         <div class="qa-card">
             <span class="q-txt">2. Why are the bride's hands often decorated with henna?</span>
-            <span class="a-txt">To make her beautiful and also bring her luck.</span>
-            <span class="tr-txt">الترجمة: لماذا غالباً ما يتم تزيين أيدي العروس باستخدام الحناء؟ الجواب: لكي يجعلها ذلك جميلة المنظر وأيضاً من أجل جلب الحظ الجيد لها.</span>
+            <span class="a-txt blur-target">to make her beautiful and also bring her luck.</span>
+            <span class="tr-txt">لماذا تُزين يد العروس بالحناء؟ الجواب: لجعلها جميلة ولجلب الحظ لها.</span>
         </div>
 
         <div class="qa-card">
             <span class="q-txt">3. What do men do in a traditional Bedouin ceremony?</span>
-            <span class="a-txt">They dance traditional dances with swords and whips.</span>
-            <span class="tr-txt">الترجمة: ماذا يفعل الرجال في مراسيم الزفاف التقليدية عند البدو؟ الجواب: إنهم يقومون بأداء رقصات شعبية تقليدية باستخدام السيوف والسياط.</span>
+            <span class="a-txt blur-target">They dance traditional dances with swords and whips.</span>
+            <span class="tr-txt">ماذا يفعل الرجال في مراسيم البدو؟ الجواب: يرقصون رقصات تقليدية بالسيوف والسياط.</span>
         </div>
 
         <div class="qa-card">
-            <span class="q-txt">4. How does the bride's mother-in-law welcome her in Morocco?</span>
-            <span class="a-txt">She gives her milk and dates.</span>
-            <span class="tr-txt">الترجمة (معدلة): كيف تقوم حماة العروس (أم زوجها) بالترحيب بها في بلد المغرب؟ الجواب: إنها تقوم بإعطائها الحليب والتمر.</span>
+            <span class="q-txt">4. How does the bride's mother-in-law welcome her to the family in Morocco?</span>
+            <span class="a-txt blur-target">She gives her milk and dates.</span>
+            <span class="tr-txt">كيف ترحب الحماة بالعروس في المغرب؟ الجواب: تعطيها الحليب والتمر.</span>
         </div>
 
         <div class="qa-card">
             <span class="q-txt">5. Why does the bride wear a white dress in Iraq?</span>
-            <span class="a-txt">To symbolize purity.</span>
-            <span class="tr-txt">الترجمة: لماذا ترتدي العروس فستاناً أبيض اللون في بلد العراق؟ الجواب: لكي يكون رمزاً للنقاء والصفاء.</span>
+            <span class="a-txt blur-target">To symbolize purity.</span>
+            <span class="tr-txt">لماذا ترتدي العروس فستاناً أبيض في العراق؟ الجواب: ليرمز للنقاء.</span>
         </div>
     </section>
-</div>
+
+    <div class="divider"></div>
+    <div class="main-header">
+        <h1>Literature Focus: Around the world in 80 Days</h1>
+        <p>النافذة الأدبية: حول العالم في 80 يوماً - الفصل الأول</p>
+    </div>
+
+    <section class="section-box">
+        <div class="section-label"><div class="label-circle">C1</div><span>Synonyms (المرادفات من السبورة)</span></div>
+        <div class="row-horizontal"><span>1</span><span>Smart</span><span class="row-ans blur-target">Clever<br>(كليفر)</span><span class="row-ar">ذكي</span></div>
+        <div class="row-horizontal"><span>2</span><span>Conversation</span><span class="row-ans blur-target">discussion<br>(دسكشن)</span><span class="row-ar">محادثة / مناقشة</span></div>
+        <div class="row-horizontal"><span>3</span><span>tracks of a train</span><span class="row-ans blur-target">railway<br>(ريل-وي)</span><span class="row-ar">سكة الحديد</span></div>
+        <div class="row-horizontal"><span>4</span><span>trip</span><span class="row-ans blur-target">Journey<br>(جيرني)</span><span class="row-ar">رحلة</span></div>
+        <div class="row-horizontal"><span>5</span><span>Was hit hard</span><span class="row-ans blur-target">banged<br>(بانكد)</span><span class="row-ar">اصطدم بقوة</span></div>
+    </section>
+
+    <section class="section-box">
+        <div class="section-label"><div class="label-circle">A</div><span>Answer the following questions:</span></div>
+        <div class="qa-card">
+            <span class="q-txt">1- what does phileas Fogg mean when he says the world was "once" big enough?</span>
+            <span class="a-txt blur-target">- You can travel around the world quicker than you could in the past.</span>
+            <span class="tr-txt">الترجمة: قصد أن السفر حول العالم أصبح أسرع بكثير مما كان عليه في الماضي.</span>
+        </div>
+        <div class="qa-card">
+            <span class="q-txt">2- Is the Daily Telegraph 100% Certain about its calculations?</span>
+            <span class="a-txt blur-target">- No, the daily Telegraph is not 100% Certain.</span>
+            <span class="tr-txt">الترجمة: هل صحيفة ديلي تلغراف متأكدة؟ الجواب: لا، ليست متأكدة تماماً.</span>
+        </div>
+        <div class="qa-card">
+            <span class="q-txt">3- What was the condition on which Fogg agreed to make the trip?</span>
+            <span class="a-txt blur-target">- The condition was the Stuart paid for the costs if he was successful.</span>
+            <span class="tr-txt">الترجمة: الشرط أن يدفع ستيوارت التكاليف في حال نجاح فوغ بالرحلة.</span>
+        </div>
+        <div class="qa-card">
+            <span class="q-txt">4- Did Falletin believe Fogg and Stuart were being serious?</span>
+            <span class="a-txt blur-target">- No, he thought it was a joke.</span>
+            <span class="tr-txt">الترجمة: هل صدق أنهم جادون؟ الجواب: لا، اعتقد أنها مجرد مزحة.</span>
+        </div>
+        <div class="qa-card">
+            <span class="q-txt">5- What does Fogg think is impossible?</span>
+            <span class="a-txt blur-target">- He thinks nothing is impossible.</span>
+            <span class="tr-txt">الترجمة: ماذا يعتقد فوغ بخصوص المستحيل؟ الجواب: هو يعتقد أن لا شيء مستحيل.</span>
+        </div>
+    </section>
+</div> <script>
+    // الكود المسؤول عن تشغيل وضع الاختبار
+    const toggleBtn = document.getElementById('testToggle');
+    toggleBtn.onclick = function() {
+        document.body.classList.toggle('is-testing');
+        if (document.body.classList.contains('is-testing')) {
+            this.textContent = "إيقاف الاختبار";
+            this.style.background = "#ff4757";
+        } else {
+            this.textContent = "وضع الاختبار (تغبيش)";
+            this.style.background = "#8257e5";
+        }
+    };
+</script>
 
 </body>
 </html>
