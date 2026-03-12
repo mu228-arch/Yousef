@@ -1,1006 +1,602 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Unit 5 - The Ultimate Guide</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-
     <style>
-
         :root {
-
             --bg: #000000; 
-
             --glass-border: rgba(27, 27, 27, 0.12);
-
             --accent: #ffffff;
-
             --text-en: #ffffff;
-
             --ans-green: #00ff2a;
-
             --ar-red: #ff0000;
-
         }
-
         body {
-
             background: var(--bg);
-
             color: var(--text-en);
-
             font-family: 'Poppins', 'Cairo', sans-serif;
-
             margin: 0;
-
             padding: 40px 20px;
-
             display: flex;
-
             justify-content: center;
-
         }
-
         .wrapper { max-width: 950px; width: 100%; }
-
         
-
         /* زر وضع الاختبار */
-
         .test-btn {
-
             position: fixed;
-
             bottom: 20px;
-
             right: 20px;
-
             background: #000;
-
             color: white;
-
             border: 2px solid #ff0000;
-
             padding: 12px 25px;
-
             border-radius: 50px;
-
             font-family: 'Cairo';
-
             font-weight: bold;
-
             cursor: pointer;
-
             z-index: 1000;
-
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-
             transition: 0.3s;
-
         }
-
         .test-btn:hover { transform: scale(1.05); }
 
-
-
         /* تأثير التغبيش */
-
         .is-testing .blur-target { filter: blur(8px); cursor: pointer; user-select: none; transition: 0.3s; }
-
         .is-testing .blur-target:active { filter: blur(0); }
-
         
-
         /* التصميم العام للأقسام */
-
         .main-header {border-left: 6px solid #b70000; padding: 15px 25px; background: rgba(255,255,255,0.02); border-radius: 0 15px 15px 0; margin-bottom: 40px;}
-
         .main-header h1 {margin: 0; font-size: 1.8rem; color: #ff0000; text-transform: uppercase;}
-
         .main-header p {margin: 5px 0 0; color: #fff; font-family: 'Cairo';}
-
         .pronunciation-title { font-size: 0.85rem; color: #a1aab3; display: block; margin-top: 5px; }
-
         
-
         .section-box {background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 25px; margin-bottom: 35px;}
-
         .section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-weight: 600; font-size: 1.1rem; color: var(--accent);}
-
         .label-circle {background: #640000; width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;}
-
         
-
         /* ستايل التوصيل */
-
         .row-horizontal { display: grid; grid-template-columns: 35px 2fr 1.5fr 1.5fr; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--glass-border); gap: 15px; }
-
         .row-ans { color: var(--ans-green); font-weight: 700; text-align: center; border: 1px solid var(--ans-green); border-radius: 8px; padding: 8px; font-size: 0.85rem; background: rgba(0,255,136,0.05); line-height: 1.4; }
-
         .row-ar {direction: rtl; font-family: 'Cairo'; color: var(--ar-red); font-size: 0.85rem; line-height: 1.4;}
-
         
-
         /* كلاسات جديدة للنطق داخل التوصيل */
-
         .q-col { display: flex; flex-direction: column; gap: 4px; }
-
         .en-text { font-size: 0.95rem; }
-
         .pronunciation-small { font-size: 0.75rem; color: #a1aab3; direction: rtl; font-family: 'Cairo'; }
 
-
-
         /* ستايل الكارتات Q&A */
-
         .qa-card { background: rgb(0, 0, 0); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); margin-bottom: 15px; }
-
         .q-txt { display: block; color: #a1aab3; font-size: 1rem; margin-bottom: 6px; font-weight: 500;}
-
         .q-tr { display: block; direction: rtl; font-family: 'Cairo'; color: #777; font-size: 0.85rem; margin-bottom: 15px; border-right: 3px solid #333; padding-right: 10px;}
-
         .q-pronunciation { display: block; direction: rtl; font-family: 'Cairo'; color: #888; font-size: 0.8rem; margin-bottom: 8px; font-style: italic;}
-
         
-
         .ans-box { display: block; border: 1px solid var(--ans-green); padding: 15px; border-radius: 12px; background: rgba(0, 255, 136, 0.04); }
-
         .a-txt { display: block; color: var(--ans-green); font-weight: 600; font-size: 1rem; margin-bottom: 8px; }
-
         .pronunciation { display: block; color: #fff; font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9; direction: rtl; font-family: 'Cairo'; }
-
         .tr-txt { display: block; direction: rtl; font-family: 'Cairo'; color: var(--ar-red); font-size: 0.9rem; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 8px; }
-
         
-
         .divider { height: 2px; background: linear-gradient(90deg, transparent, #b70000, transparent); margin: 50px 0; opacity: 0.5; }
-
     </style>
-
 </head>
-
 <body>
-
-
 
 <button class="test-btn" id="testToggle">وضع الاختبار (تغبيش)</button>
 
-
-
 <div class="wrapper">
-
     <div class="main-header">
-
         <h1>Lesson 5: Wedding customs</h1>
-
         <span class="pronunciation-title"></span>
-
         <p>الوحدة الخامسة:ما عدا القواعد</p>
-
     </div>
 
-
-
     <section class="section-box">
-
         <div class="section-label"><div class="label-circle">1</div><span>Vocabulary Definitions (التعاريف)</span></div>
-
         <div class="row-horizontal">
-
             <span>1</span>
-
             <div class="q-col">
-
                 <span class="en-text">a formal event to celebrate a special occasion</span>
-
                 <span class="pronunciation-small">أ فورمال ايفنت تو سيلبريت أ سبيشل اوكيجن</span>
-
             </div>
-
             <div class="blur-target row-ans">ceremony<br><small>(سيريموني)</small></div>
-
             <div class="row-ar">حدث رسمي للاحتفال بمناسبة خاصة. (مراسيم)</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>2</span>
-
             <div class="q-col">
-
                 <span class="en-text">the man who is getting married</span>
-
                 <span class="pronunciation-small">ذا مان هو از كيتينك ماريد</span>
-
             </div>
-
             <div class="blur-target row-ans">groom<br><small>(كروم)</small></div>
-
             <div class="row-ar">الرجل الذي سوف يتزوج. (العريس)</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>3</span>
-
             <div class="q-col">
-
                 <span class="en-text">the mother of the person you marry</span>
-
                 <span class="pronunciation-small">ذا مذر اوف ذا بيرسن يو ماري</span>
-
             </div>
-
             <div class="blur-target row-ans">mother-in-law<br><small>(مذر إن لو)</small></div>
-
             <div class="row-ar">والدة الزوج أو الزوجة. (الحماة)</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>4</span>
-
             <div class="q-col">
-
                 <span class="en-text">the celebration when people get married</span>
-
                 <span class="pronunciation-small">ذا سيلبريشن وين بيبول كيت ماريد</span>
-
             </div>
-
             <div class="blur-target row-ans">wedding<br><small>(ويدينك)</small></div>
-
             <div class="row-ar">احتفالية الزواج. (حفل الزفاف)</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>5</span>
-
             <div class="q-col">
-
                 <span class="en-text">a plant used to decorate skin or hair</span>
-
                 <span class="pronunciation-small">أ بلانت يوزد تو ديكوريت سكن اور هير</span>
-
             </div>
-
             <div class="blur-target row-ans">henna<br><small>(حنا)</small></div>
-
             <div class="row-ar">نبات يستخدم لتزيين الجلد أو الشعر. (الحناء)</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>6</span>
-
             <div class="q-col">
-
                 <span class="en-text">the woman who is getting married</span>
-
                 <span class="pronunciation-small">ذا وومن هو از كيتينك ماريد</span>
-
             </div>
-
             <div class="blur-target row-ans">bride<br><small>(برايد)</small></div>
-
             <div class="row-ar">المرأة التي سوف تتزوج. (العروس)</div>
-
         </div>
-
     </section>
 
-
-
     <section class="section-box">
-
         <div class="section-label"><div class="label-circle">2</div><span>Strong Adjectives (الصفات القوية )</span></div>
-
         <div class="row-horizontal">
-
             <span>1</span>
-
             <div class="q-col">
-
                 <span class="en-text">very good</span>
-
                 <span class="pronunciation-small">فيري كود</span>
-
                 <span class="row-ar" style="color: #aaa;">جيد جداً</span>
-
             </div>
-
             <div class="blur-target row-ans">fantastic<br><small>(فان-تاس-تِك)</small></div>
-
             <div class="row-ar">رائع جداً / خيالي</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>2</span>
-
             <div class="q-col">
-
                 <span class="en-text">very tiring</span>
-
                 <span class="pronunciation-small">فيري تايرينك</span>
-
                 <span class="row-ar" style="color: #aaa;">متعب جداً</span>
-
             </div>
-
             <div class="blur-target row-ans">exhausting<br><small>(اِك-زوس-تِنك)</small></div>
-
             <div class="row-ar">مُرهِق جداً</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>3</span>
-
             <div class="q-col">
-
                 <span class="en-text">very bad</span>
-
                 <span class="pronunciation-small">فيري باد</span>
-
                 <span class="row-ar" style="color: #aaa;">سيء جداً</span>
-
             </div>
-
             <div class="blur-target row-ans">terrible<br><small>(تير-اِبل)</small></div>
-
             <div class="row-ar">فظيع / مريع</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>4</span>
-
             <div class="q-col">
-
                 <span class="en-text">very happy</span>
-
                 <span class="pronunciation-small">فيري هابي</span>
-
                 <span class="row-ar" style="color: #aaa;">سعيد جداً</span>
-
             </div>
-
             <div class="blur-target row-ans">thrilled<br><small>(ثرِلـد)</small></div>
-
             <div class="row-ar">مبتهج / في قمة السعادة</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>5</span>
-
             <div class="q-col">
-
                 <span class="en-text">very surprising</span>
-
                 <span class="pronunciation-small">فيري سبرايزينك</span>
-
                 <span class="row-ar" style="color: #aaa;">مفاجئ جداً</span>
-
             </div>
-
             <div class="blur-target row-ans">amazing<br><small>(أمي-زِنك)</small></div>
-
             <div class="row-ar">مذهل / عجيب</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>6</span>
-
             <div class="q-col">
-
                 <span class="en-text">very beautiful</span>
-
                 <span class="pronunciation-small">فيري بيوتفل</span>
-
                 <span class="row-ar" style="color: #aaa;">جميل جداً</span>
-
             </div>
-
             <div class="blur-target row-ans">gorgeous<br><small>(كور-جِس)</small></div>
-
             <div class="row-ar">فاتن / شديد الجمال</div>
-
         </div>
-
     </section>
 
-
-
     <section class="section-box">
-
         <div class="section-label"><div class="label-circle">3</div><span>Reading Comprehension (أسئلة القطعة)</span></div>
-
         
-
         <div class="qa-card">
-
             <span class="q-txt">1. Why do fewer people have weddings over several days now?</span>
-
             <span class="q-pronunciation">النطق: واي دو فيور بيبول هاف ويدينكس اوفر سيفرال دايز ناو؟</span>
-
             <span class="q-tr">الترجمة: لماذا يقل عدد الناس الذين يقيمون حفلات زفاف لعدة أيام في الوقت الحاضر؟</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">Because people often don't have the time or money for that.</span>
-
                 <span class="pronunciation">النطق: بيكوز بيبول اوفن دونت هاف ذا تايم اور ماني فور ذات.</span>
-
                 <span class="tr-txt">الترجمة: لأن الناس في الغالب لا يملكون الوقت أو المال الكافي لذلك.</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">2. Why are the bride's hands often decorated with henna?</span>
-
             <span class="q-pronunciation">النطق: واي ار ذا برايدز هاندز اوفن ديكوريتد وذ حنا؟</span>
-
             <span class="q-tr">الترجمة: لماذا غالباً ما يتم تزيين يدي العروس بالحناء؟</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">To make her beautiful and also bring her luck.</span>
-
                 <span class="pronunciation">النطق: تو ميك هير بيوتفل اند السو برنك هير لاك.</span>
-
                 <span class="tr-txt">الترجمة: لجعلها جميلة ولجلب الحظ لها أيضاً.</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">3. What do men do in a traditional Bedouin ceremony?</span>
-
             <span class="q-pronunciation">النطق: وات دو مين دو ان أ تريدشنل بيدوين سيريموني؟</span>
-
             <span class="q-tr">الترجمة: ماذا يفعل الرجال في مراسيم البدو التقليدية؟</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">They dance traditional dances with swords and whips.</span>
-
                 <span class="pronunciation">النطق: ذي دانس تريدشنل دانسز وذ سوردز اند ويبس.</span>
-
                 <span class="tr-txt">الترجمة: يرقصون رقصات تقليدية باستخدام السيوف والسياط.</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">4. How does the bride's mother-in-law welcome her to the family in Morocco?</span>
-
             <span class="q-pronunciation">النطق: هاو دز ذا برايدز مذر إن لو ويلكم هير تو ذا فاميلي ان مروكو؟</span>
-
             <span class="q-tr">الترجمة: كيف ترحب الحماة (أم الزوج) بالعروس في العائلة في المغرب؟</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">She gives her milk and dates.</span>
-
                 <span class="pronunciation">النطق: شي كيفز هير ملك اند ديتس.</span>
-
                 <span class="tr-txt">الترجمة: تعطيها الحليب والتمر كترحيب.</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">5. Why does the bride wear a white dress in Iraq?</span>
-
             <span class="q-pronunciation">النطق: واي دز ذا برايد وير أ وايت دريس ان ايراك؟</span>
-
             <span class="q-tr">الترجمة: لماذا ترتدي العروس في العراق فستاناً أبيض؟</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">To symbolize purity.</span>
-
                 <span class="pronunciation">النطق: تو سيمبولايز بيورتي.</span>
-
                 <span class="tr-txt">الترجمة: ليرمز إلى النقاء والصفاء.</span>
-
             </div>
-
         </div>
-
     </section>
 
-
-
     <section class="section-box">
-
         <div class="section-label"><div class="label-circle">4</div><span>Matching Beginnings & Endings (توصيل الجمل )</span></div>
-
         
-
         <div class="qa-card">
-
             <span class="q-txt">1. It's hot. Shall I...</span>
-
             <span class="q-pronunciation">النطق: اتس هوت. شال اي...</span>
-
             <span class="q-tr">الترجمة: الجو حار، هل تسمح لي أن...</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">e. open a window?</span>
-
                 <span class="pronunciation">النطق: اوبن أ ويندو؟</span>
-
                 <span class="tr-txt">الترجمة: أفتح نافذة؟</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">2. We're going swimming. Would you like...</span>
-
             <span class="q-pronunciation">النطق: وير كوينك سويمينك. ود يو لايك...</span>
-
             <span class="q-tr">الترجمة: نحن ذاهبون للسباحة، هل ترغب في...</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">c. to come with us?</span>
-
                 <span class="pronunciation">النطق: تو كام وذ اس؟</span>
-
                 <span class="tr-txt">الترجمة: المجيء معنا؟</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">3. You look thirsty. I'll...</span>
-
             <span class="q-pronunciation">النطق: يو لوك ثيرستي. ايل...</span>
-
             <span class="q-tr">الترجمة: تبدو عطشاناً، أنا سوف...</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">d. get you something cold to drink.</span>
-
                 <span class="pronunciation">النطق: كيت يو سمثنك كولد تو درينك.</span>
-
                 <span class="tr-txt">الترجمة: أجلب لك شيئاً بارداً لتشربه.</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">4. It's time to eat. Shall I...</span>
-
             <span class="q-pronunciation">النطق: اتس تايم تو ايت. شال اي...</span>
-
             <span class="q-tr">الترجمة: حان وقت الطعام، هل أقوم بـ...</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">f. make us some sandwiches?</span>
-
                 <span class="pronunciation">النطق: ميك اس سم ساندوتشز؟</span>
-
                 <span class="tr-txt">الترجمة: صنع بعض الشطائر (اللفات) لنا؟</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">5. I know this is your first time in Baghdad. Would you like...</span>
-
             <span class="q-pronunciation">النطق: اي نو ذس از يور فيرست تايم ان بغداد. ود يو لايك...</span>
-
             <span class="q-tr">الترجمة: أعرف أن هذه أول مرة لك في بغداد، هل تود...</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">a. to see the city?</span>
-
                 <span class="pronunciation">النطق: تو سي ذا سيتي؟</span>
-
                 <span class="tr-txt">الترجمة: أن ترى المدينة؟</span>
-
             </div>
-
         </div>
 
-
-
         <div class="qa-card">
-
             <span class="q-txt">6. I don't have time to help you with your homework now. I'll...</span>
-
             <span class="q-pronunciation">النطق: اي دونت هاف تايم تو هيلب يو وذ يور هوم وورك ناو. ايل...</span>
-
             <span class="q-tr">الترجمة: ليس لدي وقت لمساعدتك بواجبك المدرسي الآن، أنا سوف...</span>
-
             <div class="blur-target ans-box">
-
                 <span class="a-txt">b. do it when I get home.</span>
-
                 <span class="pronunciation">النطق: دو ات وين اي كيت هوم.</span>
-
                 <span class="tr-txt">الترجمة: أفعله (أساعدك) عندما أصل للمنزل.</span>
-
             </div>
-
         </div>
-
     </section>
-
-
 
     <div class="divider"></div>
 
-
-
     <div class="main-header">
-
         <h1>Literature: Around the world in 80 Days</h1>
-
         <span class="pronunciation-title">النطق: ليتريتشر: اراوند ذا وورلد ان ايتي دايز</span>
-
         <p>الأدب: حول العالم في 80 يوماً - الفصل الأول</p>
-
     </div>
 
-
-
     <section class="section-box">
-
         <div class="section-label"><div class="label-circle">L</div><span>Synonyms (مرادفات الأدب)</span></div>
-
         <div class="row-horizontal">
-
             <span>1</span>
-
             <div class="q-col">
-
                 <span class="en-text">Smart</span>
-
                 <span class="pronunciation-small">سمارت</span>
-
             </div>
-
             <div class="blur-target row-ans">Clever<br><small>(كليفر)</small></div>
-
             <div class="row-ar">ذكي</div>
-
         </div>
-
         <div class="row-horizontal">
-
             <span>2</span>
-
             <div class="q-col">
-
                 <span class="en-text">Conversation</span>
-
                 <span class="pronunciation-small">كونفرسيشن</span>
-
             </div>
-
             <div class="blur-target row-ans">Discussion<br><small>(دسكشن)</small></div>
-
             <div class="row-ar">مناقشة / محادثة</div>
-
         </div>
-
         <div class="row-horizontal">
-
-          <span>3</span><span>tracks of a train</span><span class="row-ans blur-target">railway<br>(ريل-وي)</span><span class="row-ar">سكة الحديد</span></div>
-
-        <div class="row-horizontal"><span>4</span><span>trip</span><span class="row-ans blur-target">Journey<br>(جيرني)</span><span class="row-ar">رحلة</span></div>
-
-        <div class="row-horizontal"><span>5</span><span>Was hit hard</span><span class="row-ans blur-target">banged<br>(بانكد)</span><span class="row-ar">اصطدم بقوة</span></div>
-
+            <span>3</span>
+            <div class="q-col">
+                <span class="en-text">Tracks of a train</span>
+                <span class="pronunciation-small">تراكس اوف أ ترين</span>
+            </div>
+            <div class="blur-target row-ans">Railway<br><small>(ريل-وي)</small></div>
+            <div class="row-ar">سكة الحديد</div>
+        </div>
+        <div class="row-horizontal">
+            <span>4</span>
+            <div class="q-col">
+                <span class="en-text">Trip</span>
+                <span class="pronunciation-small">تريب</span>
+            </div>
+            <div class="blur-target row-ans">Journey<br><small>(جيرني)</small></div>
+            <div class="row-ar">رحلة</div>
+        </div>
+        <div class="row-horizontal">
+            <span>5</span>
+            <div class="q-col">
+                <span class="en-text">Was hit hard</span>
+                <span class="pronunciation-small">واز هِت هارد</span>
+            </div>
+            <div class="blur-target row-ans">Banged<br><small>(بانكد)</small></div>
+            <div class="row-ar">اصطدم بقوة</div>
+        </div>
     </section>
-
-
 
     <section class="section-box">
-
-        <div class="section-label"><div class="label-circle">A</div><span>Answer the following questions:</span></div>
-
+        <div class="section-label"><div class="label-circle">Q</div><span>Literature Questions (أسئلة الأدب)</span></div>
         <div class="qa-card">
-
-            <span class="q-txt">1- what does phileas Fogg mean when he says the world was "once" big enough?</span>
-
-            <span class="a-txt blur-target">- You can travel around the world quicker than you could in the past.</span>
-
-            <span class="tr-txt">الترجمة: قصد أن السفر حول العالم أصبح أسرع بكثير مما كان عليه في الماضي.</span>
-
+            <span class="q-txt">1. What does Phileas Fogg mean when he says the world was "once" big enough?</span>
+            <span class="q-pronunciation">النطق: وات دز فيلياس فوغ مين وين هي سيز ذا وورلد واز "وانس" بك اينف؟</span>
+            <span class="q-tr">الترجمة: ماذا يقصد فيلياس فوغ عندما يقول أن العالم كان "ذات مرة" كبيراً بما يكفي؟</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">You can travel around the world quicker than you could in the past.</span>
+                <span class="pronunciation">النطق: يو كان ترافل اراوند ذا وورلد كويكر ذان يو كود ان ذا باست.</span>
+                <span class="tr-txt">الترجمة: يمكنك السفر حول العالم بشكل أسرع مما كان ممكناً في الماضي.</span>
+            </div>
         </div>
-
         <div class="qa-card">
-
-            <span class="q-txt">2- Is the Daily Telegraph 100% Certain about its calculations?</span>
-
-            <span class="a-txt blur-target">- No, the daily Telegraph is not 100% Certain.</span>
-
-            <span class="tr-txt">الترجمة: هل صحيفة ديلي تلغراف متأكدة؟ الجواب: لا، ليست متأكدة تماماً.</span>
-
+            <span class="q-txt">2. Is the Daily Telegraph 100% Certain about its calculations?</span>
+            <span class="q-pronunciation">النطق: از ذا ديلي تلغراف هاندريد بيرسنت سيرتن اباوت اتس كالكوليشنز؟</span>
+            <span class="q-tr">الترجمة: هل صحيفة ديلي تلغراف متأكدة 100% من حساباتها؟</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">No, the daily Telegraph is not 100% Certain.</span>
+                <span class="pronunciation">النطق: نو، ذا ديلي تلغراف از نوت هاندريد بيرسنت سيرتن.</span>
+                <span class="tr-txt">الترجمة: لا، صحيفة ديلي تلغراف ليست متأكدة 100%.</span>
+            </div>
         </div>
-
         <div class="qa-card">
-
-            <span class="q-txt">3- What was the condition on which Fogg agreed to make the trip?</span>
-
-            <span class="a-txt blur-target">- The condition was the Stuart paid for the costs if he was successful.</span>
-
-            <span class="tr-txt">الترجمة: الشرط أن يدفع ستيوارت التكاليف في حال نجاح فوغ بالرحلة.</span>
-
+            <span class="q-txt">3. What was the condition on which Fogg agreed to make the trip?</span>
+            <span class="q-pronunciation">النطق: وات واز ذا كونديشن اون ويتش فوغ اكريد تو ميك ذا تريب؟</span>
+            <span class="q-tr">الترجمة: ما هو الشرط الذي وافق عليه فوغ للقيام بالرحلة؟</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">The condition was that Stuart paid for the costs if he was successful.</span>
+                <span class="pronunciation">النطق: ذا كونديشن واز ذات ستيوارت بايد فور ذا كوستس اف هي واز سكسسفل.</span>
+                <span class="tr-txt">الترجمة: الشرط كان أن يدفع ستيوارت التكاليف إذا كان فوغ ناجحاً (في رحلته).</span>
+            </div>
         </div>
-
         <div class="qa-card">
-
-            <span class="q-txt">4- Did Falletin believe Fogg and Stuart were being serious?</span>
-
-            <span class="a-txt blur-target">- No, he thought it was a joke.</span>
-
-            <span class="tr-txt">الترجمة: هل صدق أنهم جادون؟ الجواب: لا، اعتقد أنها مجرد مزحة.</span>
-
+            <span class="q-txt">4. Did Falletin believe Fogg and Stuart were being serious?</span>
+            <span class="q-pronunciation">النطق: دد فالتين بيليف فوغ اند ستيوارت وير بينك سيريوس؟</span>
+            <span class="q-tr">الترجمة: هل صدّق فالتين أن فوغ وستيوارت كانا جادين؟</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">No, he thought it was a joke.</span>
+                <span class="pronunciation">النطق: نو، هي ثوت ات واز أ جوك.</span>
+                <span class="tr-txt">الترجمة: لا، لقد اعتقد أنها كانت مزحة.</span>
+            </div>
         </div>
-
         <div class="qa-card">
-
-            <span class="q-txt">5- What does Fogg think is impossible?</span>
-
-            <span class="a-txt blur-target">- He thinks nothing is impossible.</span>
-
-            <span class="tr-txt">الترجمة: ماذا يعتقد فوغ بخصوص المستحيل؟ الجواب: هو يعتقد أن لا شيء مستحيل.</span>
-
+            <span class="q-txt">5. What does Fogg think is impossible?</span>
+            <span class="q-pronunciation">النطق: وات دز فوغ ثينك از امبوسيبل؟</span>
+            <span class="q-tr">الترجمة: ماذا يعتقد فوغ أنه مستحيل؟</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">He thinks nothing is impossible.</span>
+                <span class="pronunciation">النطق: هي ثينكس نثينك از امبوسيبل.</span>
+                <span class="tr-txt">الترجمة: هو يعتقد أن لا شيء مستحيل.</span>
+            </div>
         </div>
-
     </section>
-
-
 
     <div class="divider"></div>
 
     <div class="main-header">
-
         <h1>Grammar: Causative Verbs</h1>
-
-        <p>القواعد: الأفعال السببية (have / get)</p>
-
+        <span class="pronunciation-title">النطق: كرامر: كوزاتيف فيربز</span>
+        <p>القواعد: الأفعال السببية (Have / Get)</p>
     </div>
 
-
-
     <section class="section-box">
-
-        <div class="section-label">
-
-            <div class="label-circle">G</div>
-
-            <span style="font-weight: 500;">Rewrite the sentences using the causative form.</span>
-
-        </div>
-
+        <div class="section-label"><div class="label-circle">G1</div><span>Fill in the blanks (تمرين )</span></div>
         
-
         <div class="qa-card">
-
-            <span class="q-txt">1. My father asked someone to fix the computer. (Use the correct form of "get")</span>
-
-            <span class="a-txt blur-target">My father got the computer fixed.</span>
-
-            <span class="tr-txt">الترجمة: طلب والدي من شخص ما إصلاح الحاسوب. ➔ أبي جعل الحاسوب مُصلحاً.</span>
-
-        </div>
-
-
-
-        <div class="qa-card">
-
-            <span class="q-txt">2. I asked somebody to cut my hair. (Use the correct form of "have")</span>
-
-            <span class="a-txt blur-target">I had my hair cut.</span>
-
-            <span class="tr-txt">الترجمة: طلبت من شخص ما أن يقص شعري. ➔ حصلت على شعري مقصوصاً.</span>
-
-        </div>
-
-
-
-        <div class="qa-card">
-
-            <span class="q-txt">3. Someone stole their television.</span>
-
-            <span class="a-txt blur-target">They got their television stolen.</span>
-
-            <span class="tr-txt">الترجمة: شخص ما سرق تلفازهم. ➔ تعرضوا لسرقة تلفازهم.</span>
-
-        </div>
-
-
-
-        <div class="qa-card">
-
-            <span class="q-txt">4. A photographer took a picture of the lady.</span>
-
-            <span class="a-txt blur-target">The lady had a picture taken.</span>
-
-            <span class="tr-txt">الترجمة: التقط مصور صورة للسيدة. ➔ السيدة حصلت على صورتها ملتقطة.</span>
-
-        </div>
-
-    </section>
-
-
-
-    <section class="section-box">
-
-        <div class="section-label">
-
-            <div class="label-circle">B</div>
-
-            <span style="font-weight: 500;">Complete the sentences with the correct forms of the verbs in the box.<br>
-
-            <span style="color:#a1aab3; font-size:0.9em; margin-top:5px; display:block;">(clean ينظف - cut يقص - fix يُصلّح - paint يصبغ - send يرسل - wash يغسل)</span></span>
-
-        </div>
-
-        
-
-        <div class="qa-card">
-
             <span class="q-txt">1. Noor had her hair ________ yesterday.</span>
-
-            <span class="a-txt blur-target">cut</span>
-
-            <span class="tr-txt">نور حصلت على شعرها مقصوصاً البارحة. (بمعنى أن شخصاً آخر قصه لها في الصالون).</span>
-
+            <span class="q-pronunciation">النطق: نور هاد هير هير ________ يستردي.</span>
+            <span class="q-tr">الترجمة: نور حصلت على شعرها (مقصوصاً) البارحة.</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">cut</span>
+                <span class="pronunciation">النطق: كات</span>
+                <span class="tr-txt">الترجمة: مقصوص (التصريف الثالث للفعل cut).</span>
+            </div>
         </div>
 
         <div class="qa-card">
-
-            <span class="q-txt">2. Will you have the car ________ ? It's very dirty.</span>
-
-            <span class="a-txt blur-target">washed</span>
-
-            <span class="tr-txt">هل ستجعل السيارة مغسولة؟ (هل ستأخذها للغسل؟) إنها متسخة جداً.</span>
-
+            <span class="q-txt">2. Will you have the car ________? It's very dirty.</span>
+            <span class="q-pronunciation">النطق: ويل يو هاف ذا كار ________؟ اتس فيري ديرتي.</span>
+            <span class="q-tr">الترجمة: هل ستجعل السيارة (مغسولة)؟ إنها متسخة جداً.</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">washed</span>
+                <span class="pronunciation">النطق: واشد</span>
+                <span class="tr-txt">الترجمة: مغسولة (التصريف الثالث لـ wash).</span>
+            </div>
         </div>
 
         <div class="qa-card">
-
-            <span class="q-txt">3. I think we should get the kitchen ________ . This colour is terrible.</span>
-
-            <span class="a-txt blur-target">painted</span>
-
-            <span class="tr-txt">أعتقد أنه يجب علينا أن نجعل المطبخ مصبوغاً (نجلب صباغاً لطلائه). هذا اللون فظيع.</span>
-
+            <span class="q-txt">3. I think we should get the kitchen ________. This colour is terrible.</span>
+            <span class="q-pronunciation">النطق: اي ثينك وي شود كيت ذا كيتشن ________. ذس كلر از تيربل.</span>
+            <span class="q-tr">الترجمة: أعتقد أنه يجب أن نجعل المطبخ (مصبوغاً). هذا اللون فظيع.</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">painted</span>
+                <span class="pronunciation">النطق: بينتد</span>
+                <span class="tr-txt">الترجمة: مصبوغاً / مطلياً.</span>
+            </div>
         </div>
 
         <div class="qa-card">
-
-            <span class="q-txt">4. We must get the computer ________ . It's been broken for over a week.</span>
-
-            <span class="a-txt blur-target">fixed</span>
-
-            <span class="tr-txt">يجب أن نقوم بتصليح الحاسوب (نجعله مُصلّحاً). لقد كان معطلاً لأكثر من أسبوع.</span>
-
+            <span class="q-txt">4. We must get the computer ________. It's been broken for over a week.</span>
+            <span class="q-pronunciation">النطق: وي مست كيت ذا كمبيوتر ________. اتس بين بروكن فور اوفر أ ويك.</span>
+            <span class="q-tr">الترجمة: يجب أن نجعل الحاسوب (مُصلحاً). إنه معطل لأكثر من أسبوع.</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">fixed</span>
+                <span class="pronunciation">النطق: فيكسد</span>
+                <span class="tr-txt">الترجمة: مُصلحاً.</span>
+            </div>
         </div>
 
         <div class="qa-card">
-
             <span class="q-txt">5. Mother wants to have the house ________ before the wedding party.</span>
-
-            <span class="a-txt blur-target">cleaned</span>
-
-            <span class="tr-txt">الأم تريد أن تجعل المنزل منظفاً (تطلب تنظيفه) قبل حفلة الزفاف.</span>
-
+            <span class="q-pronunciation">النطق: مذر وونتس تو هاف ذا هاوس ________ بيفور ذا ويدينك بارتي.</span>
+            <span class="q-tr">الترجمة: الأم تريد أن تجعل المنزل (مُنظفاً) قبل حفلة الزفاف.</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">cleaned</span>
+                <span class="pronunciation">النطق: كليند</span>
+                <span class="tr-txt">الترجمة: مُنظفاً.</span>
+            </div>
         </div>
 
         <div class="qa-card">
-
             <span class="q-txt">6. Rashid had flowers ________ to his grandmother for her birthday.</span>
-
-            <span class="a-txt blur-target">sent</span>
-
-            <span class="tr-txt">رشيد جعل الأزهار تُرسَل (طلب إرسالها) إلى جدته بمناسبة عيد ميلادها.</span>
-
+            <span class="q-pronunciation">النطق: راشد هاد فلاورز ________ تو هز كراند مذر فور هير بيرثدي.</span>
+            <span class="q-tr">الترجمة: رشيد جعل الأزهار (تُرسل) لجدته من أجل عيد ميلادها.</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">sent</span>
+                <span class="pronunciation">النطق: سينت</span>
+                <span class="tr-txt">الترجمة: مُرسلة.</span>
+            </div>
         </div>
-
     </section>
 
+    <section class="section-box">
+        <div class="section-label"><div class="label-circle">G2</div><span>Rewrite Exercises (تمارين إعادة الكتابة - القديمة)</span></div>
+        
+        <div class="qa-card">
+            <span class="q-txt">My father asked someone to fix the computer. (Use: get)</span>
+            <span class="q-pronunciation">النطق: ماي فاذر اسكد سم ون تو فيكس ذا كمبيوتر. (يوز: كيت)</span>
+            <span class="q-tr">الترجمة: والدي طلب من شخص ما إصلاح الحاسوب. (استخدم: get)</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">My father got the computer fixed.</span>
+                <span class="pronunciation">النطق: ماي فاذر كوت ذا كمبيوتر فيكسد.</span>
+                <span class="tr-txt">الترجمة: والدي جعل الحاسوب مُصلحاً.</span>
+            </div>
+        </div>
 
+        <div class="qa-card">
+            <span class="q-txt">I asked somebody to cut my hair. (Use: have)</span>
+            <span class="q-pronunciation">النطق: اي اسكد سم بدي تو كات ماي هير. (يوز: هاف)</span>
+            <span class="q-tr">الترجمة: طلبت من شخص ما قص شعري. (استخدم: have)</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">I had my hair cut.</span>
+                <span class="pronunciation">النطق: اي هاد ماي هير كات.</span>
+                <span class="tr-txt">الترجمة: حصلت على شعري مقصوصاً.</span>
+            </div>
+        </div>
 
+        <div class="qa-card">
+            <span class="q-txt">Someone stole their television. (Use: causative form)</span>
+            <span class="q-pronunciation">النطق: سم ون ستول ذير تلفيجن. (يوز: كوزاتيف فورم)</span>
+            <span class="q-tr">الترجمة: شخص ما سرق تلفازهم. (استخدم: صيغة السببية)</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">They got their television stolen.</span>
+                <span class="pronunciation">النطق: ذي كوت ذير تلفيجن ستولن.</span>
+                <span class="tr-txt">الترجمة: هم تعرضوا لسرقة تلفازهم. (جعلوا تلفازهم مسروقاً)</span>
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <span class="q-txt">A photographer took a picture of the lady. (Use: have)</span>
+            <span class="q-pronunciation">النطق: أ فوتوكرافر توك أ بيكتشر اوف ذا ليدي. (يوز: هاف)</span>
+            <span class="q-tr">الترجمة: مصور التقط صورة للسيدة. (استخدم: have)</span>
+            <div class="blur-target ans-box">
+                <span class="a-txt">The lady had a picture taken.</span>
+                <span class="pronunciation">النطق: ذا ليدي هاد أ بيكتشر تيكن.</span>
+                <span class="tr-txt">الترجمة: السيدة حصلت على صورتها ملتقطة.</span>
+            </div>
+        </div>
+    </section>
 </div> 
 
 <script>
-
-    // الكود المسؤول عن تشغيل وضع الاختبار
-
     const toggleBtn = document.getElementById('testToggle');
-
     toggleBtn.onclick = function() {
-
         document.body.classList.toggle('is-testing');
-
         if (document.body.classList.contains('is-testing')) {
-
             this.textContent = "إيقاف الاختبار";
-
             this.style.background = "#ff4757";
-
+            this.style.borderColor = "#fff";
         } else {
-
             this.textContent = "وضع الاختبار (تغبيش)";
-
-            this.style.background = "#8257e5";
-
+            this.style.background = "#000";
+            this.style.borderColor = "#ff0000";
         }
-
     };
-
 </script>
 
-
-
 </body>
-
 </html>
-
